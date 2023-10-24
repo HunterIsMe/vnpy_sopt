@@ -150,9 +150,9 @@ typedef char TThostFtdcTimeType[9];
 typedef char TThostFtdcLongTimeType[13];
 
 /////////////////////////////////////////////////////////////////////////
-///TFtdcInstrumentNameType是一个合约名称类型
+///TFtdcOldInstrumentNameType是一个合约名称类型
 /////////////////////////////////////////////////////////////////////////
-typedef char TThostFtdcInstrumentNameType[21];
+typedef char TThostFtdcOldInstrumentNameType[21];
 
 /////////////////////////////////////////////////////////////////////////
 ///TFtdcSettlementGroupIDType是一个结算组代码类型
@@ -175,9 +175,19 @@ typedef char TThostFtdcTradeIDType[21];
 typedef char TThostFtdcCommandTypeType[65];
 
 /////////////////////////////////////////////////////////////////////////
+///TFtdcOldIPAddressType是一个IP地址类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcOldIPAddressType[16];
+
+/////////////////////////////////////////////////////////////////////////
 ///TFtdcIPAddressType是一个IP地址类型
 /////////////////////////////////////////////////////////////////////////
-typedef char TThostFtdcIPAddressType[16];
+typedef char TThostFtdcIPAddressType[33];
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcClientLoginRemarkType是一个客户登录备注2类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcClientLoginRemarkType[151];
 
 /////////////////////////////////////////////////////////////////////////
 ///TFtdcIPPortType是一个IP端口类型
@@ -518,6 +528,10 @@ typedef char TThostFtdcFunctionCodeType;
 #define THOST_FTDC_BFC_FBAccount 'X'
 ///备兑不足强平查询
 #define THOST_FTDC_BFC_QryCoverLack 'Y'
+///拆分试算
+#define THOST_FTDC_BFC_UnCombTest 'Z'
+///资金内转
+#define THOST_FTDC_BFC_InternalTransfer 'I'
 
 typedef char TThostFtdcBrokerFunctionCodeType;
 
@@ -844,6 +858,23 @@ typedef char TThostFtdcForceCloseReasonType;
 #define THOST_FTDC_ORDT_Swap '5'
 
 typedef char TThostFtdcOrderTypeType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcInvestorProgrammingTypeType是一个投资者程序化标识类型
+/////////////////////////////////////////////////////////////////////////
+///未知
+#define THOST_FTDC_IPT_Unknown '0'
+///非程序化
+#define THOST_FTDC_IPT_NotProgramming '1'
+///程序化
+#define THOST_FTDC_IPT_Programming '2'
+
+typedef char TThostFtdcInvestorProgrammingTypeType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcClientNameType是一个客户端类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcClientNameType[33];
 
 /////////////////////////////////////////////////////////////////////////
 ///TFtdcTimeConditionType是一个有效期类型类型
@@ -1485,6 +1516,8 @@ typedef char TThostFtdcSystemParamIDType;
 #define THOST_FTDC_TPID_LoginFailMaxNumForIP 'U'
 ///密码有效期
 #define THOST_FTDC_TPID_PasswordPeriod 'V'
+///是否线性计算保证金
+#define THOST_FTDC_TPID_IsLinearMargin 'X'
 
 typedef char TThostFtdcTradeParamIDType;
 
@@ -3795,6 +3828,8 @@ typedef char TThostFtdcReqRspTypeType;
 #define THOST_FTDC_FBTUET_SecuritiesDepositInterest 'E'
 ///日终文件就绪
 #define THOST_FTDC_FBTUET_DayEndFileReady 'F'
+///撤销预约开户
+#define THOST_FTDC_FBTUET_CancelReserveOpenAccount 'G'
 ///其他
 #define THOST_FTDC_FBTUET_Other 'Z'
 
@@ -6784,6 +6819,11 @@ typedef char TThostFtdcCollectTimeType[21];
 typedef int TThostFtdcQueryFreqType;
 
 /////////////////////////////////////////////////////////////////////////
+///TFtdcOwnerTypeType是一个所有者类型类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcOwnerTypeType[4];
+
+/////////////////////////////////////////////////////////////////////////
 ///TFtdcReserveOpenAccStasType是一个预指定开户状态类型
 /////////////////////////////////////////////////////////////////////////
 ///等待处理中
@@ -6990,6 +7030,99 @@ typedef char TThostFtdcSFMarketIDType;
 ///TFtdcSFBankNameType是一个银行账户名称类型
 /////////////////////////////////////////////////////////////////////////
 typedef char TThostFtdcSFBankNameType[61];
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcInternalFundDirectionType是一个资金内转方向类型
+/////////////////////////////////////////////////////////////////////////
+///期权入金，期货出金
+#define THOST_FTDC_INTERFDDIREC_FundIn '0'
+///期权出金，期货入金
+#define THOST_FTDC_INTERFDDIREC_FundOut '1'
+
+typedef char TThostFtdcInternalFundDirectionType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcSyncDepositStatusType是一个源系统或目标系统类型
+/////////////////////////////////////////////////////////////////////////
+///未发起
+#define THOST_FTDC_INTERFDSTATUS_UnSend '0'
+///已发起
+#define THOST_FTDC_INTERFDSTATUS_Sent '1'
+///拒绝
+#define THOST_FTDC_INTERFDSTATUS_Reject '2'
+///超时
+#define THOST_FTDC_INTERFDSTATUS_OverTime '3'
+///成功
+#define THOST_FTDC_INTERFDSTATUS_Success '4'
+///已冲正
+#define THOST_FTDC_INTERFDSTATUS_IsCharged '5'
+
+typedef char TThostFtdcSyncDepositStatusType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcFundServerStatusType是一个fundserver连接状态类型
+/////////////////////////////////////////////////////////////////////////
+///没有任何连接
+#define THOST_FTDC_FUNDSERVERSTATUS_NotConnected '0'
+///已经连接
+#define THOST_FTDC_FUNDSERVERSTATUS_Connected '1'
+///已经登录
+#define THOST_FTDC_FUNDSERVERSTATUS_Login '2'
+///已经超时
+#define THOST_FTDC_FUNDSERVERSTATUS_OverTime '3'
+
+typedef char TThostFtdcFundServerStatusType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcFundServerRedoFlagType是一个是否重演再次生成的流水,kernel会忽略相同的depoSeq类型
+/////////////////////////////////////////////////////////////////////////
+///非重演报文
+#define THOST_FTDC_FUNDREDOFLAG_NotRedo '0'
+///重演生成的(可能)无用tseries
+#define THOST_FTDC_FUNDREDOFLAG_Redo '1'
+
+typedef char TThostFtdcFundServerRedoFlagType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcInternalTransferStatusType是一个资金内转系统响应状态类型
+/////////////////////////////////////////////////////////////////////////
+///出金成功
+#define THOST_FTDC_FUNDSTATUS_OutSuccess '0'
+///出金失败
+#define THOST_FTDC_FUNDSTATUS_OutFail '1'
+///出金超时
+#define THOST_FTDC_FUNDSTATUS_OutOverTime '2'
+///出金已冲正
+#define THOST_FTDC_FUNDSTATUS_OutCharged '3'
+///入金成功
+#define THOST_FTDC_FUNDSTATUS_InSuccess '4'
+///入金失败
+#define THOST_FTDC_FUNDSTATUS_InFail '5'
+///入金超时
+#define THOST_FTDC_FUNDSTATUS_InOverTime '6'
+///入金已冲正
+#define THOST_FTDC_FUNDSTATUS_InCharged '7'
+///冲正失败
+#define THOST_FTDC_FUNDSTATUS_ChargedFail '8'
+///已提交未发起
+#define THOST_FTDC_FUNDSTATUS_Submitted '9'
+
+typedef char TThostFtdcInternalTransferStatusType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcInstrumentNameType是一个合约名称类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcInstrumentNameType[41];
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcPbuSequenceIDType是一个PBU序号标识类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcPbuSequenceIDType[3];
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcSendingTimeType是一个发送时间类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcSendingTimeType[13];
 
 
 }

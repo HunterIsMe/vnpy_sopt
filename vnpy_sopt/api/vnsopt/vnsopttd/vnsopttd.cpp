@@ -3135,6 +3135,7 @@ void TdApi::processRspCombActionInsert(Task *task)
 		data["IPAddress"] = toUtf(task_data->IPAddress);
 		data["MacAddress"] = toUtf(task_data->MacAddress);
 		data["InvestUnitID"] = toUtf(task_data->InvestUnitID);
+		data["ComTradeID"] = toUtf(task_data->ComTradeID);
 		delete task_data;
 	}
 	dict error;
@@ -5755,6 +5756,7 @@ void TdApi::processErrRtnCombActionInsert(Task *task)
 		data["IPAddress"] = toUtf(task_data->IPAddress);
 		data["MacAddress"] = toUtf(task_data->MacAddress);
 		data["InvestUnitID"] = toUtf(task_data->InvestUnitID);
+		data["ComTradeID"] = toUtf(task_data->ComTradeID);
 		delete task_data;
 	}
 	dict error;
@@ -7659,7 +7661,7 @@ void TdApi::processRspQryExecCombineOrder(Task *task)
 		data["ExchangeID"] = toUtf(task_data->ExchangeID);
 		data["ParticipantID"] = toUtf(task_data->ParticipantID);
 		data["ClientID"] = toUtf(task_data->ClientID);
-		data["UnderlyingInstID"] = toUtf(task_data->UnderlyingInstID);
+		data["UnderlyingInstrID"] = toUtf(task_data->UnderlyingInstrID);
 		data["ExchangeCallInstID"] = toUtf(task_data->ExchangeCallInstID);
 		data["ExchangePutInstID"] = toUtf(task_data->ExchangePutInstID);
 		data["TraderID"] = toUtf(task_data->TraderID);
@@ -7805,7 +7807,7 @@ void TdApi::processRtnExecCombineOrder(Task *task)
 		data["ExchangeID"] = toUtf(task_data->ExchangeID);
 		data["ParticipantID"] = toUtf(task_data->ParticipantID);
 		data["ClientID"] = toUtf(task_data->ClientID);
-		data["UnderlyingInstID"] = toUtf(task_data->UnderlyingInstID);
+		data["UnderlyingInstrID"] = toUtf(task_data->UnderlyingInstrID);
 		data["ExchangeCallInstID"] = toUtf(task_data->ExchangeCallInstID);
 		data["ExchangePutInstID"] = toUtf(task_data->ExchangePutInstID);
 		data["TraderID"] = toUtf(task_data->TraderID);
@@ -9138,6 +9140,7 @@ int TdApi::reqCombActionInsert(const dict &req, int reqid)
 	getString(req, "IPAddress", myreq.IPAddress);
 	getString(req, "MacAddress", myreq.MacAddress);
 	getString(req, "InvestUnitID", myreq.InvestUnitID);
+	getString(req,"ComTradeID",myreq.ComTradeID);
 	int i = this->api->ReqCombActionInsert(&myreq, reqid);
 	return i;
 };
